@@ -1,4 +1,7 @@
+<<<<<<< HEAD
 .idea/
+=======
+>>>>>>> 67c7422f2e76730c44e63055f64b325356bb2619
 lib-cov
 *.seed
 *.log
@@ -13,4 +16,8 @@ logs
 results
 
 npm-debug.log
+<<<<<<< HEAD
 node_modules
+=======
+node_modules
+>>>>>>> 67c7422f2e76730c44e63055f64b325356bb2619
