@@ -3,7 +3,8 @@
     "version": "0.0.1",
     "dependencies": {
         "restify" : "*",
-        "async"   : "*"
+        "async"   : "*",
+        "pantax-dbaccess" : "https://github.com/Pantax/dbaccess/archive/master.tar.gz"
     },
     "main" : "index.js"
 }
