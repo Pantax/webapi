@@ -35,7 +35,7 @@ var pantaxApp = angular.module('pantaxApp',[])
 
 var controllers = {
     menuController : function($scope, Observer) {
-
+        
     },
 
     navigateController : function($scope,Observer) {
