@@ -22,27 +22,11 @@ angular.extend(PantaxObservable.prototype, {
 
 });
 
-var pantaxApp = angular.module('pantaxApp',[])
-    .service('Observer', PantaxObservable)
-    .config(['$routeProvider', function($routeProvider){
-        $routeProvider
-            .when('/doctors',{})
-            .when('/patients', {})
-            .when('/users', {});
-
-    }]);
-
-
+var pantaxApp = angular.module('pantaxApp',['ngRoute']);
+pantaxApp.service('Observer', PantaxObservable);
 var controllers = {
-    menuController : function($scope, Observer) {
-        
-    },
 
-    navigateController : function($scope,Observer) {
-
-    }
 };
-
 pantaxApp.controller(controllers);
 
 
