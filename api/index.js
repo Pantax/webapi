@@ -71,8 +71,7 @@ server.post('/login', function(req, res, next) {
         responder.login(loginObject,function(err, results){
             if(err || !results) { processBadLogin(res); }
             else {
-                res.setHeader('Set-Cookie', 'entityId=' + results[0].ID);
-                res.setHeader('Set-Cookie', 'badrequest=false');
+                res.setHeader('Set-Cookie', 'entityId=' + results[0].ID + ';Path=/;,badrequest=false;Path=/;');
                 res.setHeader('Location', 'http://localhost');
                 res.send(302);
                 res.end();

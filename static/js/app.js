@@ -23,28 +23,9 @@ angular.extend(PantaxObservable.prototype, {
 });
 
 var pantaxApp = angular.module('pantaxApp',['ngRoute', 'ngCookies']);
-pantaxApp.service('Observer', PantaxObservable);
-pantaxApp.factory('LoginSvc', function($cookies){
-    var badrequest = $cookies.badrequest;
 
-    return {
-        isBadLogin : function() {
-            if(badrequest && badrequest == 'true') return true;
-            return false;
-        }
-    }
-});
 var controllers = {
-    LoginController : function($scope, LoginSvc) {
-        $scope.isBadLogin = function() {
-            return LoginSvc.isBadLogin();
-        }
-    },
-    SearchController : function($scope,$http) {
-        $scope.search = function() {
-            alert($scope.searchTerm);
-        };
-    }
+
 };
 pantaxApp.controller(controllers);
 
