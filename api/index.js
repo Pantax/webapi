@@ -79,8 +79,41 @@ server.post('/login', function(req, res, next) {
     }
 });
 
+server.get('/getAllCategories', function(req, res, next){
+    dbmanager.getAllCategories({}, function(err,results){
+        if(err) {
+            res.send(503,"Server Error");
+            res.end();
+        } else {
+            res.send(200,JSON.stringify(results));
+            res.end();
+        }
+    });
+});
 
+server.post('/saveCategory', function(req, res, next){
+    var category = req.body;
+    if(!category) {
+        res.send(400, '{"error":"bad request"}');
+        res.end();
+    } else {
+        if(!category.category_name) {
+            res.send(400, '{"error":"bad request"}');
+            res.end();
+        } else {
+            dbmanager.insertCategory(category.category_name, function(err, result){
+                if(err) {
+                    res.send(500, '{"error":"Server error"}');
+                    res.end();
+                } else {
+                    res.send(204);
+                    res.end();
+                }
+            })
+        }
+    }
 
+});
 
 server.listen(8081, function() {
     console.log('%s listening at %s', server.name, server.url);
