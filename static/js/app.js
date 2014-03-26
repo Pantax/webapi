@@ -29,7 +29,7 @@ var pantaxApp = angular.module('pantaxApp',['ngRoute', 'ngCookies']);
 pantaxApp.service("EventObserver", PantaxObservable);
 pantaxApp.factory('CategorySvc', [function($http){
     var Category = function(){
-
+        this.categories;
     };
 
     angular.extend(Category.prototype, {
@@ -42,7 +42,20 @@ pantaxApp.factory('CategorySvc', [function($http){
         },
 
         saveCategory : function(category, callback) {
-
+            jQuery.ajax({
+                type : 'POST',
+                url : currentApiServer + '/saveCategory',
+                data : angular.toJson(category),
+                headers : {
+                    "Content-type" : "application/json"
+                },
+                success : function(result) {
+                    callback(null,result);
+                },
+                error : function(err) {
+                    callback(err);
+                }
+            });
         }
     });
 
@@ -84,10 +97,14 @@ var controllers = {
 
     MainCntl : function($scope, EventObserver, CategorySvc) {
         $scope.currentCategory = {};
-        $scope.categories = [];
+
         EventObserver.on('categorySwitch', function(){
+            EventObserver.dispatchEvent("showWaitImage",{});
             $scope.template = '/templates/category_form.html';
             CategorySvc.getCategories(function(err, results){
+                setTimeout(function(){
+                    EventObserver.dispatchEvent('hideWaitImage',{});
+                },5000);
                 $scope.categories = angular.fromJson(results);
             });
 
@@ -98,11 +115,27 @@ var controllers = {
         })
 
         $scope.doSaveCategory = function() {
+            EventObserver.dispatchEvent("showWaitImage",{});
             var the_category = {category_name : $scope.currentCategory.name};
-            CategorySvc.saveCategory(the_category, function(err){
+            CategorySvc.saveCategory(the_category, function(err, results){
+                setTimeout(function(){
+                    EventObserver.dispatchEvent('hideWaitImage',{});
+                },5000);
                 $scope.categories.push(the_category);
             });
         }
+    },
+
+    WaitCntl : function($scope, EventObserver) {
+       $scope.showWaitImage = false;
+
+       EventObserver.on('showWaitImage', function(){
+           $scope.showWaitImage = true;
+       })
+
+       EventObserver.on('hideWaitImage', function(){
+           $scope.showWaitImage = false;
+       });
     }
 };
 pantaxApp.controller(controllers);

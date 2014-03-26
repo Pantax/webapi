@@ -44,8 +44,7 @@ server.use(function (req, res, next) {
     next();
 });
 
-function processBadLogin(res)
-{
+function processBadLogin(res){
     res.setHeader('Location', 'http://localhost/login.html')
     res.setHeader('Set-Cookie', 'badrequest=true');
     res.send(302, '{"error" : "bad login"}');
