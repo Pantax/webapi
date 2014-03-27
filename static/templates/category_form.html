@@ -1,17 +1,17 @@
 <div class="row">
     <div class="col-sm-6">
-        <form role="form" ng-submit="doSaveCategory()">
+        <form role="form" id="frmCategory">
             <h3>Create new category</h3>
             <div class="form-group">
-                <label for="categoryName">Category Name</label>
-                <input class="form-control" id="categoryName" ng-model="currentCategory.name" required placeholder="Enter category name">
+                <label for="txtCategoryName">Category Name</label>
+                <input class="form-control" id="txtCategoryName" ng-model="currentCategory.name" required placeholder="Enter category name">
             </div>
             <button type="submit" class="btn btn-default">Submit</button>
         </form>
     </div>
     <div class="col-sm-3">
             <h3>Doctor categories</h3>
-            <ul style="padding-left: 23px;" id="catContainer">
+            <ul style="padding-left: 23px;" id="cntCategories">
 
             </ul>
     </div>
