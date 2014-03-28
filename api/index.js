@@ -51,6 +51,18 @@ function processBadLogin(res){
     res.end();
 }
 
+
+function sendBadRequest(response) {
+    response.send(400, '{"error":"Bad request"}');
+    response.end();
+}
+
+
+function sendServerError(response, message) {
+    response.send(500, message? message : 'Server error');
+    response.end();
+}
+
 server.post('/login', function(req, res, next) {
     var body = req.body;
 
@@ -81,7 +93,7 @@ server.post('/login', function(req, res, next) {
 server.get('/getAllCategories', function(req, res, next){
     dbmanager.getAllCategories({}, function(err,results){
         if(err) {
-            res.send(503,"Server Error");
+            res.send(500,"Server Error");
             res.end();
         } else {
             res.send(200,JSON.stringify(results));
@@ -94,8 +106,7 @@ server.post('/saveCategory', function(req, res, next){
     var category = req.body;
     console.log(category);
     if(!category) {
-        res.send(400, '{"error":"bad request"}');
-        res.end();
+        sendBadRequest(res);
     } else {
         if(!category.category_name) {
             res.send(400, '{"error":"bad request"}');
@@ -133,8 +144,7 @@ server.post('/saveDoctor', function(req, res, next){
     var doctor = req.body;
     console.log(doctor);
     if(!doctor) {
-        res.send(400, '{"error":"Bad request"}');
-        res.end();
+        sendBadRequest(res);
     } else {
         dbmanager.saveDoctor(doctor, function(err, result) {
             if(err) {
@@ -148,6 +158,36 @@ server.post('/saveDoctor', function(req, res, next){
         });
     }
 });
+
+server.post('/addDoctorCategory', function(req, res, next){
+    var reqObject = req.body;
+    if(!reqObject || !reqObject.doctor_id || !reqObject.categories) {
+        sendBadRequest(res);
+    } else {
+        dbmanager.associateDoctorCategories(reqObject.doctor_id, reqObject.categories, function(err, results){
+            if(err) sendServerError(res);
+            else {
+                res.send(204);
+                res.end();
+            }
+        })
+    }
+});
+
+server.get('/getDoctorCategories', function(req, res, next){
+    var query = req.query;
+    if(!query || !query.categoryId) {
+        sendBadRequest(res);
+    } else {
+        dbmanager.findDoctorByCategory(query.categoryId, function(err, results){
+            if(err) sendServerError(res);
+            else {
+                res.send(200, results);
+                res.end();
+            }
+        })
+    }
+})
 
 server.listen(8081, function() {
     console.log('%s listening at %s', server.name, server.url);
