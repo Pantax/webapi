@@ -1,4 +1,13 @@
 <ul class="nav nav-bar">
-    <li><a href="javascript:void(0);" id="btnCategory">Category</a></li>
-    <li><a href="javascript:void(0);">Doctor</a></li>
+    <li><a href="javascript:void(0);" id="btnCategory" data-toggle="dropdown">Category</a></li>
+    <li>
+        <a id="drop1" href="#" role="button" class="dropdown-toggle" data-toggle="dropdown">Doctors menu <b class="caret"></b></a>
+        <ul class="dropdown-menu" role="menu" aria-labelledby="drop1">
+            <li role="presentation"><a role="menuitem" tabindex="-1" href="javascript:void(0)" id="btnDoctorEdit">Edit doctors</a></li>
+            <li role="presentation"><a role="menuitem" tabindex="-1" href="javascript:void(0)" id="btnDoctorCat">Doctor category</a></li>
+            <li role="presentation"><a role="menuitem" tabindex="-1" href="javascript:void(0)">Doctor patient</a></li>
+            <!--<li role="presentation" class="divider"></li>
+            <li role="presentation"><a role="menuitem" tabindex="-1" href="javascript:void(0)"></a></li>-->
+        </ul>
+    </li>
 </ul>

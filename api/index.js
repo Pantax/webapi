@@ -92,6 +92,7 @@ server.get('/getAllCategories', function(req, res, next){
 
 server.post('/saveCategory', function(req, res, next){
     var category = req.body;
+    console.log(category);
     if(!category) {
         res.send(400, '{"error":"bad request"}');
         res.end();
@@ -112,6 +113,40 @@ server.post('/saveCategory', function(req, res, next){
         }
     }
 
+});
+
+server.get('/findDoctorByName', function(req, res, next){
+    var query = req.query;
+    dbmanager.findDoctorBy('name', query.q, function(err, results){
+        if(err) {
+            res.send(500, 'Server error');
+            res.end();
+        }
+        else {
+            res.send(200, results);
+            res.end();
+        }
+    })
+});
+
+server.post('/saveDoctor', function(req, res, next){
+    var doctor = req.body;
+    console.log(doctor);
+    if(!doctor) {
+        res.send(400, '{"error":"Bad request"}');
+        res.end();
+    } else {
+        dbmanager.saveDoctor(doctor, function(err, result) {
+            if(err) {
+                res.send(500, '{"error": "server error"}');
+                res.end();
+            }
+            else {
+                res.send(204, result);
+                res.end();
+            }
+        });
+    }
 });
 
 server.listen(8081, function() {

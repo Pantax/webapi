@@ -1,0 +1,39 @@
+<div class="col-md-4">
+        <h3 id="lblDoctorFormTitle">Add new doctor</h3>
+        <form role="form" id="frmDoctor">
+            <input type="hidden" id="txtDoctorId"/>
+            <div class="form-group">
+                <label for="txtDoctorName">Doctor name</label>
+                <input class="form-control" id="txtDoctorName" placeholder="Enter doctor name">
+            </div>
+            <div class="form-group">
+                <label for="txtPractName">Practice Name</label>
+                <input class="form-control" id="txtPractName" placeholder="Practice Name"/>
+            </div>
+            <div class="form-group">
+                <label for="txtPictureUrl">Practice Name</label>
+                <input class="form-control" id="txtPictureUrl" placeholder="Picture url" />
+            </div>
+            <div class="form-group">
+                <label for="txtProfStat">Professional statement</label>
+                <textarea class="form-control" id="txtProfStat" placeholder="Professional statement" cols="5" rows="7"/>
+            </div>
+            <button type="submit" class="btn btn-default">Submit</button>
+        </form>
+</div>
+<div class="col-md-8">
+    <div class="row">
+        <div class="input-group col-md-8" style="float: right">
+            <input type="text" class="form-control" id="txtSearchTerm" placeholder="Search doctor by name"/>
+            <span class="input-group-btn">
+                <button class="btn btn-success" type="button" id="btnSearch">Search</button>
+            </span>
+        </div>
+    </div>
+    <div class="row">
+        <h3 id="lblSearchTitle">Search results</h3>
+        <div class="col-md-8" style="width:100%" id="cntSearchResult">
+
+        </div>
+    </div>
+</div>

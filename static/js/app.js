@@ -1,18 +1,23 @@
 (function($){
     var Page = function(options) {
         this.options = options || {};
+        this.doctors = [];
+        this.doctorMode = 'data';
     }
 
     $.extend(Page.prototype, {
         init : function() {
             $('#btnDoctors').click(function(){
+                $('#mainDataContainer').empty();
                 $('#sideMenuContainer').empty().load('/templates/doctor_menu.html', function(){
                     $('#btnCategory').click(pageInstance.categoryInit);
+                    pageInstance.doctorMenuInit();
                 });
             });
 
 
             $('#btnPatients').click(function(){
+                $('#mainDataContainer').empty();
                 $('#sideMenuContainer').empty().load('templates/patient_menu.html', function(){
 
                 });
@@ -37,8 +42,7 @@
                     }
                 });
 
-                $('#frmCategory').submit(function()
-                {
+                $('#frmCategory').submit(function() {
                     //todo check category name  to not empty
                     wait(true);
                     var category = {
@@ -56,6 +60,122 @@
                     return false;
                 });
             });
+        },
+
+        doctorMenuInit : function() {
+            $('#btnDoctorEdit').click(function(){
+                wait(true);
+                pageInstance.doctorMode = 'data';
+                $('#mainDataContainer').empty().load('/templates/doctor_form.html',function(){
+                    wait(false);
+                    pageInstance.initDoctorSearch();
+                    $('#frmDoctor').submit(pageInstance.saveDoctor);
+                });
+            });
+            $('#btnDoctorCat').click(function(){
+                wait(true);
+                pageInstance.doctorMode = 'category';
+                $('#mainDataContainer').empty().load('/templates/doctor_category.html',function(){
+                        wait(false);
+                        pageInstance.initDoctorSearch();
+                    });
+            });
+        },
+
+        initDoctorSearch : function() {
+            $('#btnSearch').click(pageInstance.searchDoctor);
+            $('#txtSearchTerm').keyup(function(e){
+                if(e.keyCode == 13) {
+                    event.preventDefault();
+                    pageInstance.searchDoctor();
+                }
+            });
+        },
+
+        searchDoctor : function() {
+            var term = $('#txtSearchTerm').val();
+            if(term) {
+                wait(true);
+                runGetAjaxQuery(pageInstance.options.apiurl + '/findDoctorByName?q=' + term, function(err, results) {
+                    if(err) {
+                        //todo error handling
+                    }
+                    else {
+                        if(results) {
+                            pageInstance.doctors = results;
+                            $('#cntSearchResult').empty();
+                            runGetAjaxQuery('/templates/doctor_searchresult.html', function(err, html){
+                                if(err) {/*todo process errors*/}
+                                else
+                                    async.each(pageInstance.doctors, function(doctor, callback){
+                                        var dHtml = html.replace(/doctorPicture/g, doctor.picture_url);
+                                        dHtml = dHtml.replace(/doctorId/g,doctor.id);
+                                        dHtml = dHtml.replace(/doctorName/g,doctor.name);
+                                        $('#cntSearchResult').append(dHtml);
+                                        callback(null);
+                                    },function(err) {
+                                        wait(false);
+                                    });
+                            });
+                        }
+                    }
+                });
+            }
+        },
+
+        editDoctor : function(doctorId) {
+            var res = $.grep(pageInstance.doctors, function(doctor){
+                return doctor.id == doctorId;
+            });
+
+            if(res.length > 0) {
+                switch(pageInstance.doctorMode) {
+                    case 'data':
+                        pageInstance.editDoctorData(res[0]);
+                        break;
+                    case 'category':
+                        pageInstance.editDoctorCategory(res[0]);
+                        break;
+                    default:
+                        alert('no mode found');
+                        break;
+                }
+
+            }
+        },
+
+        editDoctorData : function(doctor) {
+            $('#txtDoctorName').val(doctor.name);
+            $('#txtPractName').val(doctor.pract_name);
+            $('#txtPictureUrl').val(doctor.picture_url);
+            $('#txtProfStat').val(doctor.prof_stat);
+            $('#txtDoctorId').val(doctor.id);
+        },
+
+        editDoctorCategory : function(doctor) {
+            alert(doctor.name)
+        },
+
+        saveDoctor : function() {
+            wait(true);
+            var doctor = {
+                name : $('#txtDoctorName').val(),
+                pract_name : $('#txtPractName').val(),
+                picture_url : $('#txtPictureUrl').val(),
+                prof_stat : $('#txtProfStat').val()
+            };
+
+            if($('#txtDoctorId').val()) doctor.id = $('#txtDoctorId').val();
+
+            runPostAjaxQuery(pageInstance.options.apiurl + '/saveDoctor', doctor, function(err, reslut){
+                if(err) {
+                    alert(err);
+                } else {
+                    wait(false);
+                }
+            });
+
+            return false;
         }
     });
 
@@ -101,6 +221,16 @@
             if (!pageInstance) {
                 pageInstance = new Page(options);
                 pageInstance.init();
+            }
+        },
+
+        editObject : function(element, type, objectId) {
+            switch(type) {
+                case 'doctor' :
+                    pageInstance.editDoctor(objectId);
+                    break;
+                default:
+                    alert('undefined type');
             }
         }
     });
