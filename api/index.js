@@ -174,7 +174,7 @@ server.post('/addDoctorCategory', function(req, res, next){
     }
 });
 
-server.get('/getDoctorCategories', function(req, res, next){
+server.get('/getDoctorsCategory', function(req, res, next){
     var query = req.query;
     if(!query || !query.categoryId) {
         sendBadRequest(res);

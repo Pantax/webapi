@@ -77,9 +77,46 @@
                 pageInstance.doctorMode = 'category';
                 $('#mainDataContainer').empty().load('/templates/doctor_category.html',function(){
                         wait(false);
-                        pageInstance.initDoctorSearch();
-                    });
+                        runGetAjaxQuery(pageInstance.options.apiurl + '/getAllCategories', function(err, result){
+                            if(err) {
+                                wait(false);
+                            }
+                            else {
+                                var results = $.parseJSON(result);
+                                async.each(results, function(category,callback){
+                                    $('#slktCategories').append('<option value="'+ category.id + '">' + category.category_name + '</optton>');
+                                    callback(null);
+                                }, function(err){
+                                    $('#slktCategories').change(function(e){
+                                       pageInstance.getDoctorsByCategory(this.value);
+                                    })
+                                    wait(false);
+                                });
+                            }
+                        });
+                });
             });
+        },
+
+        getDoctorsByCategory : function(categoryId) {
+            runGetAjaxQuery(pageInstance.options.apiurl + '/getDoctorsCategory?categoryId=' + categoryId, function(err, results){
+                if(err) alert(err);
+                else {
+                    runGetAjaxQuery('/templates/doctor_searchresult.html', function(err, html){
+                        if(err) {alert(err);}
+                        else
+                            async.each(results, function(doctor, callback){
+                                var dHtml = html.replace(/doctorPicture/g, doctor.picture_url);
+                                dHtml = dHtml.replace(/doctorId/g,doctor.id);
+                                dHtml = dHtml.replace(/doctorName/g,doctor.name);
+                                $('#cntSearchResult').append(dHtml);
+                                callback(null);
+                            },function(err) {
+                                wait(false);
+                            });
+                    });
+                }
+            })
         },
 
         initDoctorSearch : function() {
