@@ -152,7 +152,7 @@ server.post('/saveDoctor', function(req, res, next){
                 res.end();
             }
             else {
-                res.send(204, result);
+                res.send(202, result);
                 res.end();
             }
         });
@@ -167,7 +167,7 @@ server.post('/addDoctorCategory', function(req, res, next){
         dbmanager.associateDoctorCategories(reqObject.doctor_id, reqObject.categories, function(err, results){
             if(err) sendServerError(res);
             else {
-                res.send(204);
+                res.send(202);
                 res.end();
             }
         })
@@ -187,8 +187,68 @@ server.get('/getDoctorsCategory', function(req, res, next){
             }
         })
     }
-})
+});
+
+server.get('/getAppointmentOptions', function(req, res, next){
+    var query = req.query;
+    if(!query || !query.doctorId) {
+        sendBadRequest(res);
+    } else {
+        dbmanager.getDoctorAppointmentsOptions(query.doctorId, function(err, results){
+            if(err) sendServerError(res);
+            else {
+                res.send(200,results);
+                res.end();
+            }
+        });
+    }
+});
+
+server.post('/saveAppointmentOptions', function(req, res, next){
+    var body = req.body;
+    if(!body || !body.doctor_id || !body.options || !body.options.length) {
+        sendBadRequest(res);
+    } else {
+        dbmanager.saveDoctorAppointmentOptions(body.doctor_id, body.options, function(err, results){
+            if(err) sendServerError(res);
+            else {
+                res.send(202);
+                res.end();
+            }
+        });
+    }
+});
+
+server.del('/appointmentOptions', function(req, res, next){
+    var query = req.query;
+    if(!query || !query.optionId) {
+        sendBadRequest(res);
+    } else {
+        dbmanager.deleteDoctorAppointmentsOptions([query.optionId], function(err, results) {
+            if(err) sendServerError(res);
+            else {
+                res.send(202);
+                res.end();
+            }
+        })
+    }
+});
+
+server.post('/savePatient', function(req, res, next){
+    var patient = req.body;
+    if(!patient) sendBadRequest(res);
+    else {
+        dbmanager.savePatient(patient,function(err, results){
+            if(err) sendServerError(res);
+            else {
+                res.send(202);
+                res.end();
+            }
+        });
+    }
+});
 
 server.listen(8081, function() {
     console.log('%s listening at %s', server.name, server.url);
 });
+
