@@ -105,6 +105,7 @@
                     runGetAjaxQuery('/templates/doctor_searchresult.html', function(err, html){
                         if(err) {alert(err);}
                         else
+                            $('#cntSearchResult').empty();
                             async.each(results, function(doctor, callback){
                                 var dHtml = html.replace(/doctorPicture/g, doctor.picture_url);
                                 dHtml = dHtml.replace(/doctorId/g,doctor.id);
