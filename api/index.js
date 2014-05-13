@@ -5,21 +5,6 @@ var restify = require('restify');
 var dbmanager = require('pantax-dbaccess');
 
 
-var Responder = function(options)
-{
-    this.options = options || {};
-}
-
-Responder.prototype.login = function(loginObject, callback) {
-    dbmanager.getEntityByCode(loginObject.code, loginObject.isDoctor, function(err, results){
-        if(err) callback(err);
-        else {
-            callback(null, results);
-        }
-    });
-}
-
-
 var responder = new Responder({});
 
 var server = restify.createServer();
@@ -64,30 +49,19 @@ function sendServerError(response, message) {
 }
 
 server.post('/login', function(req, res, next) {
-    var body = req.body;
-
-    if(body.code) {
-        var loginObject = {
-            code : body.code,
-            isDoctor : body.isdoctor? true : false
-        }
-    } else {
-        var loginObject = null;
-    }
-
-    if(!loginObject) {
-       processBadLogin(res);
-    } else {
-        responder.login(loginObject,function(err, results){
-            if(err || !results) { processBadLogin(res); }
-            else {
-                res.setHeader('Set-Cookie', 'entityId=' + results[0].ID + ';Path=/;,badrequest=false;Path=/;');
-                res.setHeader('Location', 'http://localhost');
-                res.send(302);
+     var body = req.body;
+     if(!body.user || !body.password) {
+         sendBadRequest(res);
+     }  else {
+         dbmanager.login(body.user, body.password, function(err, result) {
+            if(err) {
+                processBadLogin(res);
+            } else {
+                res.send(200, {token : result});
                 res.end();
             }
-        });
-    }
+         });
+     }
 });
 
 
