@@ -4,7 +4,7 @@
     "dependencies": {
         "restify" : "*",
         "async"   : "*",
-        "pantax-dbaccess" : "https://github.com/Pantax/dbaccess/archive/master.tar.gz"
+        "pantax-dbaccess" : "https://github.com/Pantax/dbaccess/archive/poc.tar.gz"
     },
     "main" : "index.js"
 }
