@@ -124,8 +124,19 @@ server.get('/status', function(req, res, next) {
             res.send(200, {"status" : (result? result : 'unknow') });
             res.end();
         }
-    })
+    });
 });
+
+server.get('/updatestatus', function(req, res, next) {
+    dbmanager.updateuserstatus(req.user_id, function(err, result) {
+        if(err) {
+            sendServerError(res, "status error");
+        } else {
+            res.send(202);
+            res.end();
+        }
+    });
+})
 
 
 server.listen(8081, function() {

@@ -16,5 +16,9 @@ GET http://localhost:8081/test?t=bliahamuha
 
 
 Get user status
+GET http://localhost:8081/status?t=7b3a1275-daa7-11e3-b6ac-0800278eff10
 
+
+Update user status
+GET http://localhost:8081/updatestatus?t=7b3a1275-daa7-11e3-b6ac-0800278eff10
 
