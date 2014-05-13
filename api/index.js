@@ -20,6 +20,33 @@ Responder.prototype.login = function(loginObject, callback) {
 }
 
 
+function tokenProcessor(req, res, next) {
+    debugger;
+    if(req.url.indexOf('/login') != 0) {
+        var token = req.query.t;
+        if(!token) {
+            res.send(403, "Access denied");
+            res.end();
+        }
+        else {
+            dbmanager.userbytoken(token, function(err, result){
+                if(err) {
+                    sendServerError(res, 'token error');
+                } else if(result && result.result && result.result == 'OK') {
+                    req.user_id = result.user_id;
+                    next();
+                } else {
+                    res.send(403, 'Access denied');
+                    res.end();
+                }
+            });
+        }
+    }
+    else {
+        next();
+    }
+};
+
 var responder = new Responder({});
 
 var server = restify.createServer();
@@ -43,6 +70,8 @@ server.use(function (req, res, next) {
     // Pass to next layer of middleware
     next();
 });
+server.use(tokenProcessor);
+
 
 function processBadLogin(res){
     res.setHeader('Location', 'http://localhost/login.html')
@@ -63,6 +92,8 @@ function sendServerError(response, message) {
     response.end();
 }
 
+
+
 server.post('/login', function(req, res, next) {
     var body = req.body;
     if(!body.user || !body.password) {
@@ -78,6 +109,22 @@ server.post('/login', function(req, res, next) {
             }
         });
     }
+});
+
+server.get('/test', function(req, res) {
+    res.send(200, "User:" + req.user_id + " All work fine");
+    res.end();
+});
+
+server.get('/status', function(req, res, next) {
+    dbmanager.getuserstatus(req.user_id, function(err, result) {
+        if(err) {
+            sendServerError(res, "status error");
+        } else {
+            res.send(200, {"status" : (result? result : 'unknow') });
+            res.end();
+        }
+    })
 });
 
 

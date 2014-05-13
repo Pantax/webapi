@@ -1,3 +1,5 @@
+Login request example:
+
 POST http://localhost:8081/login
 Content-type: application/json
 POST_BODY:
@@ -5,3 +7,14 @@ POST_BODY:
     "user" : "kala",
     "password" : "mala"
 }
+
+Success request with valid token => test token expiration in DB.
+GET http://localhost:8081/test?t=8963e4a8-da61-11e3-b6ac-0800278eff10
+
+NOT valid request => token not exists in DB
+GET http://localhost:8081/test?t=bliahamuha
+
+
+Get user status
+
+
