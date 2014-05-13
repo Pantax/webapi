@@ -68,9 +68,10 @@ server.post('/login', function(req, res, next) {
     if(!body.user || !body.password) {
         sendBadRequest(res);
     }  else {
+        debugger;
         dbmanager.login(body.user, body.password, function(err, result) {
             if(err) {
-                processBadLogin(res);
+                sendBadRequest(res);
             } else {
                 res.send(200, {token : result});
                 res.end();

@@ -1,0 +1,7 @@
+POST http://localhost:8081/login
+Content-type: application/json
+POST_BODY:
+{
+    "user" : "kala",
+    "password" : "mala"
+}
