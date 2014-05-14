@@ -9,7 +9,7 @@ POST_BODY:
 }
 
 Success request with valid token => test token expiration in DB.
-GET http://localhost:8081/test?t=8963e4a8-da61-11e3-b6ac-0800278eff10
+GET http://localhost:8081/test?t=b0dbdc67-db77-11e3-8a5f-0800278eff10
 
 NOT valid request => token not exists in DB
 GET http://localhost:8081/test?t=bliahamuha
@@ -21,4 +21,7 @@ GET http://localhost:8081/status?t=7b3a1275-daa7-11e3-b6ac-0800278eff10
 
 Update user status
 GET http://localhost:8081/updatestatus?t=7b3a1275-daa7-11e3-b6ac-0800278eff10
+
+
+
 

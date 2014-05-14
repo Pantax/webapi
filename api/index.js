@@ -34,6 +34,8 @@ function tokenProcessor(req, res, next) {
                     sendServerError(res, 'token error');
                 } else if(result && result.result && result.result == 'OK') {
                     req.user_id = result.user_id;
+                    req.entity_type = result.entity_type;
+                    req.entity_id = result.entity_id;
                     next();
                 } else {
                     res.send(403, 'Access denied');
@@ -137,6 +139,10 @@ server.get('/updatestatus', function(req, res, next) {
         }
     });
 })
+
+server.get('/finddoctor', function(req, res, next) {
+
+});
 
 
 server.listen(8081, function() {
