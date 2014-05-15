@@ -23,5 +23,9 @@ Update user status
 GET http://localhost:8081/updatestatus?t=7b3a1275-daa7-11e3-b6ac-0800278eff10
 
 
+Search doctors
+GET http://localhost:8081/finddoctor?t=f4ec7d28-dc63-11e3-ba27-0800278eff10&q=burka%20purka
+
+
 
 
