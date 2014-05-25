@@ -140,7 +140,6 @@ server.get('/updatestatus', function(req, res, next) {
 })
 
 server.get('/finddoctor', function(req, res, next) {
-    debugger;
     var query = req.query.q;
     if(query) {
         var terms = query.split(' ');
@@ -186,6 +185,46 @@ server.get('/finddoctor', function(req, res, next) {
     }
     else {
         sendBadRequest(res);
+    }
+});
+
+server.get('/getdoctor', function(req, res, next) {
+    var doctor_id = req.query.did;
+    if(!doctor_id) {
+        sendBadRequest(res);
+    } else {
+        dbmanager.getdoctor(doctor_id, function(err, results) {
+            if(err) {
+                sendServerError(res, err.message);
+            } else {
+                if(!results || results.length == 0) {
+                    sendServerError(res, "doctor not found");
+                } else {
+                    res.send(200, results[0]);
+                    res.end();
+                }
+            }
+        });
+    }
+});
+
+server.get('/getpatient', function( req, res, next) {
+    var patient_id = req.query.pid;
+    if(!patient_id) {
+        sendBadRequest(res);
+    } else {
+        dbmanager.getpatient(patient_id, function(err, results) {
+            if(err) {
+                sendServerError(res, err.message);
+            } else {
+                if(!results || results.length == 0) {
+                    sendServerError(res, "patient not found");
+                } else {
+                    res.send(200, results[0]);
+                    res.end();
+                }
+            }
+        });
     }
 });
 

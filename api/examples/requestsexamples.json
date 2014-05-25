@@ -24,7 +24,13 @@ GET http://localhost:8081/updatestatus?t=7b3a1275-daa7-11e3-b6ac-0800278eff10
 
 
 Search doctors
-GET http://localhost:8081/finddoctor?t=f4ec7d28-dc63-11e3-ba27-0800278eff10&q=burka%20purka
+GET http://localhost:8081/finddoctor?t=f4ec7d28-dc63-11e3-ba27-0800278eff10&q=barla%20mala%20shurla%20purla
+
+Get doctor
+GET http://localhost:8081/getdoctor?t=f4ec7d28-dc63-11e3-ba27-0800278eff10&did=1
+
+Get patient
+GET http://localhost:8081/getpatient?t=f4ec7d28-dc63-11e3-ba27-0800278eff10&pid=1
 
 
 
