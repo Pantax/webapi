@@ -76,7 +76,7 @@ GET http://localhost:8081/patinfo?t=f4ec7d28-dc63-11e3-ba27-0800278eff10
 {
 	"from_index": "0",
 	"to_index": "10",
-	[{"date": "20/06/2014:18:00", "appointment_doctor_name": "Dr. Moshe Moshe", "appointment_additional_info": "Bla Bla"}]
+	"appointments": [{"date": "20/06/2014:18:00", "appointment_doctor_name": "Dr. Moshe Moshe", "appointment_additional_info": "Bla Bla"}]
 }
 
 # 36 Documents
