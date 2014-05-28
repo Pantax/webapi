@@ -34,7 +34,8 @@ GET http://localhost:8081/page?t=f4ec7d28-dc63-11e3-ba27-0800278eff10
 	"balance": "111",
 	"birthday": "10/05/1977",
 	"user_id": "111111111",
-	"booked_appointments": [{"appointment_id":"11111", "from_date":"10/05/2014:18:15", "to_date":"10/05/2014:18:30", "doctor_id":"22222"}]
+	"profile_picture_URL": "example.com/pictures/pict1.jpg",
+	"booked_appointments": [{"appointment_id":"11111", "appointment_option_id":"11111", "from_date":"10/05/2014:18:15", "to_date":"10/05/2014:18:30", "doctor_id":"22222"}]
 }
 
 # 32 Doctors Wish List
@@ -44,12 +45,12 @@ GET http://localhost:8081/wishlist?t=f4ec7d28-dc63-11e3-ba27-0800278eff10
 	"to_index": "5",
 	"wishlist": [{
 			"doctor_profile": {"name": "John Smith", "degree": "MD", "primary_care": "Therapist", "rank": "", "category_name": ""},
-			"booked_appointments": [{"appointment_id":"11111", "from_date":"10/05/2014:18:15", "to_date":"10/05/2014:18:30", "doctor_id":"22222"}]
+			"booked_appointments": [{"appointment_id":"11111", "appointment_option_id":"11111", "from_date":"10/05/2014:18:15", "to_date":"10/05/2014:18:30", "doctor_id":"22222"}]
 		}]
 }
 
 # 33 Additional Details
-GET http://localhost:8081/addetails?t=f4ec7d28-dc63-11e3-ba27-0800278eff10
+GET http://localhost:8081/addetails?t=f4ec7d28-dc63-11e3-ba27-0800278eff10&aid=111
 
 {
 	"weight": "77",
@@ -58,7 +59,6 @@ GET http://localhost:8081/addetails?t=f4ec7d28-dc63-11e3-ba27-0800278eff10
 	"temperature": "36.8",
 	"appointment_reason": "SsSs",
 	"additional_info": "sSS",
-	"profile_picture_URL": "example.com/pictures/pict1.jpg"
 }
 
 # 34 Personal Info
@@ -68,7 +68,8 @@ GET http://localhost:8081/personalinfo?t=f4ec7d28-dc63-11e3-ba27-0800278eff10
 	"birthday": "20/05/1977",
 	"marital_status": "Married",
 	"occupation": "Engineer",
-	"address": "DDD St., Moscow"
+	"address": "DDD St., Moscow",
+	"profile_picture_URL": "example.com/pictures/pict1.jpg"
 }
 
 # 35 Patient History
@@ -76,7 +77,7 @@ GET http://localhost:8081/patinfo?t=f4ec7d28-dc63-11e3-ba27-0800278eff10
 {
 	"from_index": "0",
 	"to_index": "10",
-	"appointments": [{"date": "20/06/2014:18:00", "appointment_doctor_name": "Dr. Moshe Moshe", "appointment_additional_info": "Bla Bla"}]
+	"appointments": [{"appointment_id":"11111", "appointment_option_id":"11111", "date": "20/06/2014:18:00", "appointment_doctor_name": "Dr. Moshe Moshe", "appointment_additional_info": "Bla Bla"}]
 }
 
 # 36 Documents
@@ -85,4 +86,88 @@ GET http://localhost:8081/patdocs?t=f4ec7d28-dc63-11e3-ba27-0800278eff10
 	"from_index": "0",
 	"to_index": "10",
 	"documents": [{"date": "20/06/2014:18:00", "upload_date": "20/04/2014:18:00", "title": "Blood Test", "comment": "Bla Bla", "last_access_date": "" , "access_URL": "example.com/docs/?t=f4ec7d28-dc63-11e3-ba27-0800278eff10&docid=1111"}]
+}
+
+# Getters - Helpers
+# Get Appointment Details
+GET http://localhost:8081/appdetails?t=f4ec7d28-dc63-11e3-ba27-0800278eff10&aid=111111
+{
+	"id":"11111",
+	"patient_id": "111",
+	"weight": "77",
+	"height": "177",
+	"blood_pressure": "90:120",
+	"temperature": "36.8",
+	"appointment_reason": "SsSs",
+	"additional_info": "sSS",
+	"doctor_id": "222",
+	"from_date": "20/06/2014:18:00",
+	"to_date": "20/06/2014:18:30"
+
+}
+
+# Get Doctor Details
+GET http://localhost:8081/docdetails?t=f4ec7d28-dc63-11e3-ba27-0800278eff10&did=111111
+{
+	"id":"11111",
+	"name": "Dr. John Smith",
+	"degree": "MD",
+	"primary_care": "therapist",	
+	"rank": "TTT",
+	"profile_picture_URL": "example.com/pictures/pict1.jpg",
+	"reviews": [{"id":"11111", "doctore_id": "111", , "patient_id": "22", "rank": "eeeeee", "review_text": "wwwww"}]
+	"appointment_options": [{"id":"11111", "doctor_id": "33", "from_date": "20/06/2014:18:00", , "to_date": "20/06/2014:18:30"}]
+}
+
+# Get Patient Details
+GET http://localhost:8081/patdetails?t=f4ec7d28-dc63-11e3-ba27-0800278eff10&aid=111111
+{
+	"id":"11111",
+	"name": "John Smith",
+	"birthday": "20/05/1977",
+	"marital_status": "Married",
+	"occupation": "Engineer",
+	"address": "DDD St., Moscow"
+	"profile_picture_URL": "example.com/pictures/pict1.jpg",
+	"reviews": [{"id":"11111", "doctore_id": "111", , "patient_id": "22", "rank": "eeeeee", "review_text": "wwwww"}],
+	"appointment_appointment_options": [{"appointment_id":"11111", "appointment_option_id":"11111", "from_date": "20/06/2014:18:00", , "to_date": "20/06/2014:18:30"}]
+}
+
+# Setters
+# 33 Additional Details
+POST http://localhost:8081/updateaddetails?t=f4ec7d28-dc63-11e3-ba27-0800278eff10&aid=111
+Content-type: application/json
+POST_BODY:
+{
+	"id":"111",
+	"weight": "77",
+	"height": "177",
+	"blood_pressure": "90:120",
+	"temperature": "36.8",
+	"appointment_reason": "SsSs",
+	"additional_info": "sSS",
+}
+
+# 34 Personal Info
+POST http://localhost:8081/updatepersonalinfo?t=f4ec7d28-dc63-11e3-ba27-0800278eff10
+Content-type: application/json
+POST_BODY:
+{
+	"id":"11111",
+	"name": "John Smith",
+	"birthday": "20/05/1977",
+	"marital_status": "Married",
+	"occupation": "Engineer",
+	"address": "DDD St., Moscow"
+	"profile_picture_URL": "example.com/pictures/pict1.jpg"
+}
+
+# Book Appointment
+POST http://localhost:8081/patinfo?t=f4ec7d28-dc63-11e3-ba27-0800278eff10
+{
+}
+
+# 36 Upload Document
+POST http://localhost:8081/patdocs?t=f4ec7d28-dc63-11e3-ba27-0800278eff10
+{
 }
