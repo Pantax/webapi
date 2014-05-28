@@ -1,4 +1,4 @@
-Login request example:
+# Login request example:
 
 POST http://localhost:8081/login
 Content-type: application/json
@@ -8,30 +8,81 @@ POST_BODY:
     "password" : "mala"
 }
 
-Success request with valid token => test token expiration in DB.
+# Success request with valid token => test token expiration in DB.
 GET http://localhost:8081/test?t=b0dbdc67-db77-11e3-8a5f-0800278eff10
 
-NOT valid request => token not exists in DB
+# NOT valid request => token not exists in DB
 GET http://localhost:8081/test?t=bliahamuha
 
 
-Get user status
+# Get user status
 GET http://localhost:8081/status?t=7b3a1275-daa7-11e3-b6ac-0800278eff10
 
 
-Update user status
+# Update user status
 GET http://localhost:8081/updatestatus?t=7b3a1275-daa7-11e3-b6ac-0800278eff10
 
 
-Search doctors
-GET http://localhost:8081/finddoctor?t=f4ec7d28-dc63-11e3-ba27-0800278eff10&q=barla%20mala%20shurla%20purla
-
-Get doctor
-GET http://localhost:8081/getdoctor?t=f4ec7d28-dc63-11e3-ba27-0800278eff10&did=1
-
-Get patient
-GET http://localhost:8081/getpatient?t=f4ec7d28-dc63-11e3-ba27-0800278eff10&pid=1
+# Search doctors
+GET http://localhost:8081/finddoctor?t=f4ec7d28-dc63-11e3-ba27-0800278eff10&q=burka%20purka
 
 
+# 3 Patient Page
+GET http://localhost:8081/page?t=f4ec7d28-dc63-11e3-ba27-0800278eff10
 
+{
+	"balance": "111",
+	"birthday": "10/05/1977",
+	"user_id": "111111111",
+	"booked_appointments": [{"appointment_id":"11111", "from_date":"10/05/2014:18:15", "to_date":"10/05/2014:18:30", "doctor_id":"22222"}]
+}
 
+# 32 Doctors Wish List
+GET http://localhost:8081/wishlist?t=f4ec7d28-dc63-11e3-ba27-0800278eff10
+{
+	"from_index": "0",
+	"to_index": "5",
+	"wishlist": [{
+			"doctor_profile": {"name": "John Smith", "degree": "MD", "primary_care": "Therapist", "rank": "", "category_name": ""},
+			"booked_appointments": [{"appointment_id":"11111", "from_date":"10/05/2014:18:15", "to_date":"10/05/2014:18:30", "doctor_id":"22222"}]
+		}]
+}
+
+# 33 Additional Details
+GET http://localhost:8081/addetails?t=f4ec7d28-dc63-11e3-ba27-0800278eff10
+
+{
+	"weight": "77",
+	"height": "177",
+	"blood_pressure": "90:120",
+	"temperature": "36.8",
+	"appointment_reason": "SsSs",
+	"additional_info": "sSS",
+	"profile_picture_URL": "example.com/pictures/pict1.jpg"
+}
+
+# 34 Personal Info
+GET http://localhost:8081/personalinfo?t=f4ec7d28-dc63-11e3-ba27-0800278eff10
+{
+	"name": "John Smith",
+	"birthday": "20/05/1977",
+	"marital_status": "Married",
+	"occupation": "Engineer",
+	"address": "DDD St., Moscow"
+}
+
+# 35 Patient History
+GET http://localhost:8081/patinfo?t=f4ec7d28-dc63-11e3-ba27-0800278eff10
+{
+	"from_index": "0",
+	"to_index": "10",
+	[{"date": "20/06/2014:18:00", "appointment_doctor_name": "Dr. Moshe Moshe", "appointment_additional_info": "Bla Bla"}]
+}
+
+# 36 Documents
+GET http://localhost:8081/patdocs?t=f4ec7d28-dc63-11e3-ba27-0800278eff10
+{
+	"from_index": "0",
+	"to_index": "10",
+	"documents": [{"date": "20/06/2014:18:00", "upload_date": "20/04/2014:18:00", "title": "Blood Test", "comment": "Bla Bla", "last_access_date": "" , "access_URL": "example.com/docs/?t=f4ec7d28-dc63-11e3-ba27-0800278eff10&docid=1111"}]
+}
