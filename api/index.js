@@ -238,7 +238,6 @@ server.get('/page', function(req, res, next) {
                         sendServerError(res, "patient not found");
                     } else {
                         var result_object = {};
-                        debugger;
                         for(var i = 0; i < results.length; i++) {
                             for(var key in results[i]) {
                                 if(key === 'patient') {
