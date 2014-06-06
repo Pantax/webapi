@@ -4,8 +4,8 @@ POST http://localhost:8081/login
 Content-type: application/json
 POST_BODY:
 {
-    "user" : "kala",
-    "password" : "mala"
+    "user" : "vanka",
+    "password" : "shmanka"
 }
 
 # Success request with valid token => test token expiration in DB.
@@ -29,7 +29,7 @@ GET http://localhost:8081/finddoctor?primcare=therapist&q=burka%20purka
 
 
 # 3 Patient Page
-GET http://localhost:8081/page?t=f4ec7d28-dc63-11e3-ba27-0800278eff10
+GET http://localhost:8081/page?t=6569652d-ed85-11e3-a41a-0800278eff10
 
 {
 	"balance": "111",
@@ -107,7 +107,7 @@ GET http://localhost:8081/docdetails?t=f4ec7d28-dc63-11e3-ba27-0800278eff10&did=
 	"id":"11111",
 	"name": "Dr. John Smith",
 	"degree": "MD",
-	"primary_care": "therapist",	
+	"primary_care": "therapist",
 	"rank": "TTT",
 	"profile_picture_URL": "example.com/pictures/pict1.jpg",
 	"reviews": [{"id":"11111", "doctore_id": "111", , "patient_id": "22", "rank": "eeeeee", "review_text": "wwwww"}]
@@ -166,7 +166,7 @@ POST http://localhost:8081/patinfo?t=f4ec7d28-dc63-11e3-ba27-0800278eff10
 {
 	"id":"11111",
 	"appointment_option_id"
-	
+
 	"appointment_appointment_options": [{"id":"11111", "appointment_id":"222", "appointment_options_id":"333", "from_date": "20/06/2014:18:00", , "to_date": "20/06/2014:18:30"}]
 	"booked_appointments": [{"appointment_id":"11111", "from_date":"10/05/2014:18:15", "to_date":"10/05/2014:18:30", "doctor_id":"22222"}]
 }

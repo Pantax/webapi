@@ -3,6 +3,7 @@
  */
 var restify = require('restify');
 var dbmanager = require('pantax-dbaccess');
+var async = require('async');
 
 
 var Responder = function(options)
@@ -208,23 +209,61 @@ server.get('/getdoctor', function(req, res, next) {
     }
 });
 
-server.get('/getpatient', function( req, res, next) {
-    var patient_id = req.query.pid;
-    if(!patient_id) {
+server.get('/page', function(req, res, next) {
+    if(req.entity_type != 'patient') {
         sendBadRequest(res);
     } else {
-        dbmanager.getpatient(patient_id, function(err, results) {
-            if(err) {
-                sendServerError(res, err.message);
-            } else {
-                if(!results || results.length == 0) {
-                    sendServerError(res, "patient not found");
-                } else {
-                    res.send(200, results[0]);
-                    res.end();
+        var patient_id = req.entity_id;
+        if(!patient_id) {
+            sendBadRequest(res);
+        } else {
+            async.parallel([
+                function(cb) {
+                    dbmanager.getpatient(patient_id, function(err, results) {
+                        if(err) cb(err, null);
+                        else cb(null, {patient: (results.length > 0? results[0] : null)});
+                    });
+                },
+                function(cb) {
+                    dbmanager.getpatientappointments(patient_id, function(err, results) {
+                        if(err) cb(err, null);
+                        else cb(null, {appointments: results});
+                    });
                 }
-            }
-        });
+            ], function(err, results) {
+                if(err) {
+                    sendServerError(res, "error fetch patient");
+                } else {
+                    if(!results || results.length == 0) {
+                        sendServerError(res, "patient not found");
+                    } else {
+                        var result_object = {};
+                        debugger;
+                        for(var i = 0; i < results.length; i++) {
+                            for(var key in results[i]) {
+                                if(key === 'patient') {
+                                    if(results[i].patient) {
+                                        result_object.user_id = req.user_id;
+                                        result_object.birthday = results[i].patient.birthday;
+                                        result_object.balance = results[i].patient.balance;
+                                        result_object.profile_picture_URL = results[i].patient.picture_url;
+                                        result_object.name = results[i].patient.name;
+                                    } else {
+                                        sendServerError(res, "patient not found");
+                                    }
+                                } else if (key === 'appointments') {
+                                    result_object.booked_appointments = results[i].appointments;
+                                }
+                            }
+                        }
+                        res.send(200, result_object);
+                        res.end();
+                    }
+                }
+            });
+
+
+        }
     }
 });
 
