@@ -304,6 +304,23 @@ server.get('/patinfo', function(req, res, next) {
 });
 
 
+server.get('/personalinfo', function(req, res, next) {
+    if(req.entity_type != 'patient') {
+        sendServerError(res, "wrong entity");
+    } else dbmanager.getpatientpersonalinfo(req.entity_id, function(err, results) {
+        if(err) sendServerError(res, err);
+        else {
+            if(!results || results.length == 0) {
+                sendServerError(res, "patient not found");
+            } else {
+                res.send(200, results[0]);
+                res.end();
+            }
+        }
+    });
+});
+
+
 server.listen(8081, function() {
     console.log('%s listening at %s', server.name, server.url);
 });

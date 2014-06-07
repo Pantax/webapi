@@ -61,7 +61,7 @@ GET http://localhost:8081/addetails?t=d5a7319f-ee0d-11e3-a41a-0800278eff10&aid=1
 }
 
 # 34 Personal Info
-GET http://localhost:8081/personalinfo?t=f4ec7d28-dc63-11e3-ba27-0800278eff10
+GET http://localhost:8081/personalinfo?t=d5a7319f-ee0d-11e3-a41a-0800278eff10
 {
 	"name": "John Smith",
 	"birthday": "20/05/1977",
