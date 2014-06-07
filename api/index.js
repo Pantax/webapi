@@ -266,6 +266,25 @@ server.get('/page', function(req, res, next) {
     }
 });
 
+server.get('/addetails', function(req, res, next) {
+    var app_id = req.query.aid;
+    if(!app_id) {
+        sendBadRequest(res);
+    } else {
+        dbmanager.getappointmentinfo(1,function(err, results) {
+            if(err) sendServerError(res, err.message);
+            else {
+                if(!results || results.length == 0) {
+                    sendServerError(res, "appointment not found")
+                } else {
+                    res.send(200, results[0]);
+                    res.end();
+                }
+            }
+        });
+    }
+});
+
 
 server.listen(8081, function() {
     console.log('%s listening at %s', server.name, server.url);

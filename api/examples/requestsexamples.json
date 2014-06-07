@@ -29,7 +29,7 @@ GET http://localhost:8081/finddoctor?primcare=therapist&q=burka%20purka
 
 
 # 3 Patient Page
-GET http://localhost:8081/page?t=6569652d-ed85-11e3-a41a-0800278eff10
+GET http://localhost:8081/page?t=917a7055-ed86-11e3-a41a-0800278eff10
 
 {
 	"balance": "111",
@@ -49,7 +49,7 @@ GET http://localhost:8081/wishlist?t=f4ec7d28-dc63-11e3-ba27-0800278eff10&pn=0&s
 }
 
 # 33 Additional Details
-GET http://localhost:8081/addetails?t=f4ec7d28-dc63-11e3-ba27-0800278eff10&aid=111
+GET http://localhost:8081/addetails?t=d5a7319f-ee0d-11e3-a41a-0800278eff10&aid=1
 
 {
 	"weight": "77",
