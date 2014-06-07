@@ -285,6 +285,24 @@ server.get('/addetails', function(req, res, next) {
     }
 });
 
+server.get('/patinfo', function(req, res, next) {
+    var page_number = req.query.pn? (req.query.pn * 1) : 0;
+    var size = req.query.s? (req.query.s * 1) : 10;
+
+    var pNumber = page_number * size;
+    if(req.entity_type != 'patient') {
+        sendServerError(res, "wrong entity");
+    } else dbmanager.getpatientapphistory(req.entity_id,pNumber, size,function(err, results) {
+        if(err) sendServerError(res, err);
+        else {
+            res.send(200, {
+                appointments : results
+            });
+            res.end();
+        }
+    });
+});
+
 
 server.listen(8081, function() {
     console.log('%s listening at %s', server.name, server.url);
