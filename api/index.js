@@ -25,7 +25,7 @@ function tokenProcessor(req, res, next) {
     if(req.url.indexOf('/login') != 0) {
         var token = req.query.t;
         if(!token) {
-            res.send(403, "Access denied");
+            res.send(401, "Access denied");
             res.end();
         }
         else {
@@ -318,6 +318,26 @@ server.get('/personalinfo', function(req, res, next) {
             }
         }
     });
+});
+
+server.post('/updatepersonalinfo', function(req, res, next) {
+     var patient_info = req.body;
+     if(!patient_info) {
+         sendBadRequest(res);
+     } else {
+         dbmanager.updatepatientinfo(patient_info, function(err, results) {
+             if(err) {
+                 sendServerError(res, err);
+             } else {
+                if(results.affectedRows > 0) {
+                    res.send(202);
+                    res.end();
+                } else {
+                    sendServerError(res, 'no rows affected');
+                }
+             }
+         })
+     }
 });
 
 
