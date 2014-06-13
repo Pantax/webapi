@@ -122,28 +122,28 @@ GET http://localhost:8081/patdetails?t=f4ec7d28-dc63-11e3-ba27-0800278eff10&aid=
 	"birthday": "20/05/1977",
 	"marital_status": "Married",
 	"occupation": "Engineer",
-	"address": "DDD St., Moscow"
+	"address": "DDD St., Moscow",
 	"profile_picture_URL": "example.com/pictures/pict1.jpg",
-	"reviews": [{"id":"11111", "doctore_id": "111", , "patient_id": "22", "rank": "eeeeee", "review_text": "wwwww"}],
-	"appointment_appointment_options": [{"appointment_id":"11111", "appointment_option_id":"11111", "from_date": "20/06/2014:18:00", , "to_date": "20/06/2014:18:30"}]
+	"reviews": [{"id":"11111", "doctore_id": "111", "patient_id": "22", "rank": "eeeeee", "review_text": "wwwww"}],
+	"appointment_appointment_options": [{"appointment_id":"11111", "appointment_option_id":"11111", "from_date": "20/06/2014:18:00", "to_date": "20/06/2014:18:30"}]
 }
 
 # Setters
 # 33 Set Appointment Details
-POST http://localhost:8081/updateaddetails?t=72bd2866-f2c3-11e3-bce1-0800278eff10
+# If id parameter exists then this is update (may be row not found exception) otherwise is create new appointment
+POST http://localhost:8081/appointment?t=72bd2866-f2c3-11e3-bce1-0800278eff10
 Content-type: application/json
+POST_BODY:
 {
-	"id":"111",
-	"patient_id": "111",
-	"weight": "77",
+	"id" : 1,
+	"patient_id": "1",
+	"weight": "77.5",
 	"height": "177",
-	"blood_pressure": "90:120",
+	"blood_pressure": "90x120",
 	"temperature": "36.8",
 	"appointment_reason": "SsSs",
 	"additional_info": "sSS",
-	"doctor_id": "222",
-	"from_date": "20/06/2014:18:00",
-	"to_date": "20/06/2014:18:30"
+	"appointment_option_ids" : [12, 15]
 
 }
 
