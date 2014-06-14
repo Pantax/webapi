@@ -340,6 +340,22 @@ server.post('/updatepersonalinfo', function(req, res, next) {
      }
 });
 
+server.post('/appointment', function(req, res, next) {
+    var app_info = req.body;
+    if(!app_info) {
+        sendBadRequest(res);
+    } else {
+        dbmanager.saveappointment(app_info, function(err, result) {
+            if(err) {
+                sendServerError(res, err);
+            } else {
+                res.send(202);
+                res.end();
+            }
+        })
+    }
+});
+
 
 server.listen(8081, function() {
     console.log('%s listening at %s', server.name, server.url);

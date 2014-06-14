@@ -135,15 +135,15 @@ POST http://localhost:8081/appointment?t=72bd2866-f2c3-11e3-bce1-0800278eff10
 Content-type: application/json
 POST_BODY:
 {
-	"id" : 1,
+	"id" : 7,
 	"patient_id": "1",
 	"weight": "77.5",
 	"height": "177",
 	"blood_pressure": "90x120",
 	"temperature": "36.8",
-	"appointment_reason": "SsSs",
+	"appointment_reason": "Jopa so zdoroviem",
 	"additional_info": "sSS",
-	"appointment_option_ids" : [12, 15]
+	"appointment_option_ids" : [1, 8]
 
 }
 
