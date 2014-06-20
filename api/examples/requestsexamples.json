@@ -9,27 +9,27 @@ POST_BODY:
 }
 
 # Success request with valid token => test token expiration in DB.
-GET http://localhost:8081/test?t=b0dbdc67-db77-11e3-8a5f-0800278eff10
+GET http://localhost:8081/test?t=b0c48a32-f4a7-11e3-9f98-0800278eff10
 
 # NOT valid request => token not exists in DB
-GET http://localhost:8081/test?t=bliahamuha
+GET http://localhost:8081/test?t=b0c48a32-f4a7-11e3-9f98-0800278eff10
 
 
-# Get user status
-GET http://localhost:8081/status?t=7b3a1275-daa7-11e3-b6ac-0800278eff10
+# Get user status Done
+GET http://localhost:8081/status?t=b0c48a32-f4a7-11e3-9f98-0800278eff10
 
 
-# Update user status
-GET http://localhost:8081/updatestatus?t=7b3a1275-daa7-11e3-b6ac-0800278eff10
+# Update user status Done
+GET http://localhost:8081/updatestatus?t=b0c48a32-f4a7-11e3-9f98-0800278eff10
 
 
 # 4 Search doctors
-##GET http://localhost:8081/finddoctor?t=f4ec7d28-dc63-11e3-ba27-0800278eff10&q=burka%20purka
+##GET http://localhost:8081/finddoctor?t=b0c48a32-f4a7-11e3-9f98-0800278eff10&q=burka%20purka
 GET http://localhost:8081/finddoctor?primcare=therapist&q=burka%20purka
 
 
 # 3 Patient Page
-GET http://localhost:8081/page?t=917a7055-ed86-11e3-a41a-0800278eff10
+GET http://localhost:8081/page?t=b0c48a32-f4a7-11e3-9f98-0800278eff10
 
 {
 	"balance": "111",
@@ -40,7 +40,7 @@ GET http://localhost:8081/page?t=917a7055-ed86-11e3-a41a-0800278eff10
 }
 
 # 32 Doctors Wish List
-GET http://localhost:8081/wishlist?t=f4ec7d28-dc63-11e3-ba27-0800278eff10&pn=0&s=20
+GET http://localhost:8081/wishlist?t=b0c48a32-f4a7-11e3-9f98-0800278eff10&pn=0&s=20
 {
 	"wishlist": [{
 			"doctor_profile": {"name": "John Smith", "degree": "MD", "primary_care": "Therapist", "rank": ""},
@@ -48,8 +48,8 @@ GET http://localhost:8081/wishlist?t=f4ec7d28-dc63-11e3-ba27-0800278eff10&pn=0&s
 		}]
 }
 
-# 33 Additional Details
-GET http://localhost:8081/addetails?t=d5a7319f-ee0d-11e3-a41a-0800278eff10&aid=1
+# 33 Additional Details Done
+GET http://localhost:8081/addetails?t=b0c48a32-f4a7-11e3-9f98-0800278eff10&aid=1
 
 {
 	"weight": "77",
@@ -60,8 +60,8 @@ GET http://localhost:8081/addetails?t=d5a7319f-ee0d-11e3-a41a-0800278eff10&aid=1
 	"additional_info": "sSS",
 }
 
-# 34 Personal Info
-GET http://localhost:8081/personalinfo?t=d5a7319f-ee0d-11e3-a41a-0800278eff10
+# 34 Personal Info Done
+GET http://localhost:8081/personalinfo?t=b0c48a32-f4a7-11e3-9f98-0800278eff10
 {
 	"name": "John Smith",
 	"birthday": "20/05/1977",
@@ -71,21 +71,21 @@ GET http://localhost:8081/personalinfo?t=d5a7319f-ee0d-11e3-a41a-0800278eff10
 	"profile_picture_URL": "example.com/pictures/pict1.jpg"
 }
 
-# 35 Patient History
-GET http://localhost:8081/patinfo?t=470633b4-ee21-11e3-a41a-0800278eff10&pn=0&s=20
+# 35 Patient History Done
+GET http://localhost:8081/patinfo?t=b0c48a32-f4a7-11e3-9f98-0800278eff10&pn=0&s=20
 {
 	"appointments": [{"appointment_id":"11111", "appointment_option_id":"11111", "date": "20/06/2014:18:00", "appointment_doctor_name": "Dr. Moshe Moshe", "appointment_additional_info": "Bla Bla"}]
 }
 
 # 36 Documents
-GET http://localhost:8081/patdocs?t=f4ec7d28-dc63-11e3-ba27-0800278eff10&pn=0&s=20
+GET http://localhost:8081/patdocs?t=b0c48a32-f4a7-11e3-9f98-0800278eff10&pn=0&s=20
 {
-	"documents": [{"date": "20/06/2014:18:00", "upload_date": "20/04/2014:18:00", "title": "Blood Test", "comment": "Bla Bla", "last_access_date": "" , "access_URL": "example.com/docs/?t=f4ec7d28-dc63-11e3-ba27-0800278eff10&docid=1111"}]
+	"documents": [{"date": "20/06/2014:18:00", "upload_date": "20/04/2014:18:00", "title": "Blood Test", "comment": "Bla Bla", "last_access_date": "" , "access_URL": "example.com/docs/?t=b0c48a32-f4a7-11e3-9f98-0800278eff10&docid=1111"}]
 }
 
 # Getters - Helpers
-# Get Appointment Details
-GET http://localhost:8081/appdetails?t=f4ec7d28-dc63-11e3-ba27-0800278eff10&aid=111111
+# Get Appointment Details Done
+GET http://localhost:8081/appdetails?t=b0c48a32-f4a7-11e3-9f98-0800278eff10&aid=1
 {
 	"id":"11111",
 	"patient_id": "111",
@@ -95,14 +95,16 @@ GET http://localhost:8081/appdetails?t=f4ec7d28-dc63-11e3-ba27-0800278eff10&aid=
 	"temperature": "36.8",
 	"appointment_reason": "SsSs",
 	"additional_info": "sSS",
-	"doctor_id": "222",
-	"from_date": "20/06/2014:18:00",
-	"to_date": "20/06/2014:18:30"
+	"options" : [ {
+		"doctor_id": "222",
+		"from_date": "20/06/2014:18:00",
+		"to_date": "20/06/2014:18:30"
+	}]
 
 }
 
 # Get Doctor Details
-GET http://localhost:8081/docdetails?t=f4ec7d28-dc63-11e3-ba27-0800278eff10&did=111111
+GET http://localhost:8081/docdetails?t=b0c48a32-f4a7-11e3-9f98-0800278eff10&did=111111
 {
 	"id":"11111",
 	"name": "Dr. John Smith",
@@ -115,7 +117,7 @@ GET http://localhost:8081/docdetails?t=f4ec7d28-dc63-11e3-ba27-0800278eff10&did=
 }
 
 # 3 Get Patient Details
-GET http://localhost:8081/patdetails?t=f4ec7d28-dc63-11e3-ba27-0800278eff10&aid=111111
+GET http://localhost:8081/patdetails?t=b0c48a32-f4a7-11e3-9f98-0800278eff10&aid=111111
 {
 	"id":"11111",
 	"name": "John Smith",
@@ -131,11 +133,10 @@ GET http://localhost:8081/patdetails?t=f4ec7d28-dc63-11e3-ba27-0800278eff10&aid=
 # Setters
 # 33 Set Appointment Details
 # If id parameter exists then this is update (may be row not found exception) otherwise is create new appointment
-POST http://localhost:8081/appointment?t=72bd2866-f2c3-11e3-bce1-0800278eff10
+POST http://localhost:8081/appointment?t=b0c48a32-f4a7-11e3-9f98-0800278eff10
 Content-type: application/json
 POST_BODY:
 {
-	"id" : 7,
 	"patient_id": "1",
 	"weight": "77.5",
 	"height": "177",
@@ -148,7 +149,7 @@ POST_BODY:
 }
 
 # 34 Set Personal Info
-POST http://localhost:8081/updatepersonalinfo?t=72bd2866-f2c3-11e3-bce1-0800278eff10
+POST http://localhost:8081/updatepersonalinfo?t=b0c48a32-f4a7-11e3-9f98-0800278eff10
 Content-type: application/json
 POST_BODY:
 {
@@ -162,7 +163,7 @@ POST_BODY:
 }
 
 # Book Appointment - TBD
-POST http://localhost:8081/patinfo?t=f4ec7d28-dc63-11e3-ba27-0800278eff10
+POST http://localhost:8081/patinfo?t=b0c48a32-f4a7-11e3-9f98-0800278eff10
 {
 	"id":"11111",
 	"appointment_option_id"
@@ -172,12 +173,12 @@ POST http://localhost:8081/patinfo?t=f4ec7d28-dc63-11e3-ba27-0800278eff10
 }
 
 # 36 Upload Document - TBD
-POST http://localhost:8081/patdocs?t=f4ec7d28-dc63-11e3-ba27-0800278eff10
+POST http://localhost:8081/patdocs?t=b0c48a32-f4a7-11e3-9f98-0800278eff10
 Content-Type: application/json
 {
 	"from_index": "0",
 	"to_index": "10",
-	"documents": [{"date": "20/06/2014:18:00", "upload_date": "20/04/2014:18:00", "title": "Blood Test", "comment": "Bla Bla", "last_access_date": "" , "access_URL": "example.com/docs/?t=f4ec7d28-dc63-11e3-ba27-0800278eff10&docid=1111"}]
+	"documents": [{"date": "20/06/2014:18:00", "upload_date": "20/04/2014:18:00", "title": "Blood Test", "comment": "Bla Bla", "last_access_date": "" , "access_URL": "example.com/docs/?t=b0c48a32-f4a7-11e3-9f98-0800278eff10&docid=1111"}]
 }
 
 ## 4/06/2014

@@ -22,7 +22,7 @@ Responder.prototype.login = function(loginObject, callback) {
 
 
 function tokenProcessor(req, res, next) {
-    if(req.url.indexOf('/login') != 0) {
+    if(req.url.indexOf('/login') != 0 && req.url.indexOf('/finddoctor') != 0) {
         var token = req.query.t;
         if(!token) {
             res.send(401, "Access denied");
@@ -354,6 +354,23 @@ server.post('/appointment', function(req, res, next) {
             }
         })
     }
+});
+
+server.get('/appdetails', function(req, res, next) {
+    var app_id = req.query.aid;
+    if(!app_id) {
+        sendBadRequest(res);
+    } else {
+        dbmanager.getappointment(app_id, function(err, results) {
+            if(err) {
+                sendServerError(res, util.inspect(err));
+            } else {
+                res.send(200, results);
+                res.end();
+            }
+        });
+    }
+
 });
 
 
