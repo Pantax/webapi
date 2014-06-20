@@ -373,6 +373,21 @@ server.get('/appdetails', function(req, res, next) {
 
 });
 
+server.get('/patdetails', function(req, res, next) {
+     var pat_id = req.query.pid;
+    if(!pat_id) {
+        sendBadRequest(res);
+    } else {
+        dbmanager.getpatientdetails(pat_id, function(err, result) {
+            if(err) sendServerError(res, util.inspect(err));
+            else {
+                res.send(200, result);
+                res.end();
+            }
+        });
+    }
+});
+
 
 server.listen(8081, function() {
     console.log('%s listening at %s', server.name, server.url);

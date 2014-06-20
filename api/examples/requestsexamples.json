@@ -116,8 +116,8 @@ GET http://localhost:8081/docdetails?t=b0c48a32-f4a7-11e3-9f98-0800278eff10&did=
 	"appointment_options": [{"id":"11111", "doctor_id": "33", "from_date": "20/06/2014:18:00", "to_date": "20/06/2014:18:30"}]
 }
 
-# 3 Get Patient Details
-GET http://localhost:8081/patdetails?t=b0c48a32-f4a7-11e3-9f98-0800278eff10&aid=111111
+# 3 Get Patient Details Done
+GET http://localhost:8081/patdetails?t=b0c48a32-f4a7-11e3-9f98-0800278eff10&pid=1
 {
 	"id":"11111",
 	"name": "John Smith",
@@ -127,11 +127,11 @@ GET http://localhost:8081/patdetails?t=b0c48a32-f4a7-11e3-9f98-0800278eff10&aid=
 	"address": "DDD St., Moscow",
 	"profile_picture_URL": "example.com/pictures/pict1.jpg",
 	"reviews": [{"id":"11111", "doctore_id": "111", "patient_id": "22", "rank": "eeeeee", "review_text": "wwwww"}],
-	"appointment_appointment_options": [{"appointment_id":"11111", "appointment_option_id":"11111", "from_date": "20/06/2014:18:00", "to_date": "20/06/2014:18:30"}]
+	"appointments": [{"appointment_id":"11111", "doctor_id":"11111", "from_date": "20/06/2014:18:00", "to_date": "20/06/2014:18:30"}]
 }
 
 # Setters
-# 33 Set Appointment Details
+# 33 Set Appointment Details Done
 # If id parameter exists then this is update (may be row not found exception) otherwise is create new appointment
 POST http://localhost:8081/appointment?t=b0c48a32-f4a7-11e3-9f98-0800278eff10
 Content-type: application/json
@@ -148,7 +148,7 @@ POST_BODY:
 
 }
 
-# 34 Set Personal Info
+# 34 Set Personal Info Done
 POST http://localhost:8081/updatepersonalinfo?t=b0c48a32-f4a7-11e3-9f98-0800278eff10
 Content-type: application/json
 POST_BODY:
@@ -168,7 +168,7 @@ POST http://localhost:8081/patinfo?t=b0c48a32-f4a7-11e3-9f98-0800278eff10
 	"id":"11111",
 	"appointment_option_id"
 
-	"appointment_appointment_options": [{"id":"11111", "appointment_id":"222", "appointment_options_id":"333", "from_date": "20/06/2014:18:00", , "to_date": "20/06/2014:18:30"}]
+	"appointment_appointment_options": [{"id":"11111", "appointment_id":"222", "appointment_options_id":"333", "from_date": "20/06/2014:18:00", "to_date": "20/06/2014:18:30"}],
 	"booked_appointments": [{"appointment_id":"11111", "from_date":"10/05/2014:18:15", "to_date":"10/05/2014:18:30", "doctor_id":"22222"}]
 }
 
