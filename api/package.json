@@ -1,5 +1,6 @@
 {
     "name": "doctors-api",
+    "description" : "api interface for pantax system",
     "version": "0.0.1",
     "dependencies": {
         "restify" : "*",

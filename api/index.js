@@ -382,6 +382,21 @@ server.get('/categlist', function(req, res, next) {
     }
 })
 
+server.post('/patdoc', function(req, res, next) {
+    var document = req.body;
+    if(!document) {
+        sendBadRequest(res);
+    } else {
+        dbmanager.insertdocument(document, req.entity_type, req.entity_id, function(err, results) {
+            if(err) sendServerError(res, util.inspect(err));
+            else {
+                res.send(200, results);
+                res.end();
+            }
+        });
+    }
+});
+
 
 
 
