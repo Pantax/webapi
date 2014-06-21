@@ -23,9 +23,9 @@ GET http://localhost:8081/status?t=b0c48a32-f4a7-11e3-9f98-0800278eff10
 GET http://localhost:8081/updatestatus?t=b0c48a32-f4a7-11e3-9f98-0800278eff10
 
 
-# 4 Search doctors
+# 4 Search doctors Done
 ##GET http://localhost:8081/finddoctor?t=b0c48a32-f4a7-11e3-9f98-0800278eff10&q=burka%20purka
-GET http://localhost:8081/finddoctor?primcare=therapist&q=burka%20purka
+GET http://localhost:8081/finddoctor?q=hello%20dr&pn=1&s=10
 
 
 # 3 Patient Page Done

@@ -144,39 +144,15 @@ server.get('/updatestatus', function(req, res, next) {
 
 server.get('/finddoctor', function(req, res, next) {
     var query = req.query.q;
+    var page = req.query.pn;
+    var size = req.query.s;
     if(query) {
         var terms = query.split(' ');
         if(terms && terms.length > 0) {
-            dbmanager.doctorsearch(terms, function(err, results) {
+            dbmanager.doctorsearch(terms, page * size, size * 1, function(err, results) {
                 if(err) sendServerError(res, 'search error');
                 else {
-                   var returnResult = [];
-                   var doctorData;
-                   for(var i = 0; i < results.length; i++) {
-                        var dd = results[i];
-                       if(!doctorData || doctorData.doctor_id != dd.doctor_id) {
-                           if(i > 0) returnResult.push(doctorData);
-                           doctorData = {
-                                doctor_id : dd.doctor_id,
-                                name : dd.name,
-                                degree : dd.degree,
-                                appointments : []
-                            };
-                       }
-
-                       var app = {
-                           app_id : dd.app_id,
-                           from_date : dd.from_date,
-                           to_date : dd.to_date
-                       };
-
-                        doctorData.appointments.push(app);
-                   }
-
-                   if(doctorData && doctorData.doctor_id)
-                        returnResult.push(doctorData);
-
-                   res.send(200, returnResult);
+                   res.send(200, results);
                    res.end();
                 }
             });
