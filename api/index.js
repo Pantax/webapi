@@ -22,7 +22,9 @@ Responder.prototype.login = function(loginObject, callback) {
 
 
 function tokenProcessor(req, res, next) {
-    if(req.url.indexOf('/login') != 0 && req.url.indexOf('/finddoctor') != 0) {
+    if(req.url.indexOf('/login') != 0
+        && req.url.indexOf('/finddoctor') != 0
+        && req.url.indexOf('/categlist') != 0) {
         var token = req.query.t;
         if(!token) {
             res.send(401, "Access denied");
@@ -387,6 +389,24 @@ server.get('/patdetails', function(req, res, next) {
         });
     }
 });
+
+server.get('/categlist', function(req, res, next) {
+    var page = req.query.pn;
+    var size = req.query.s;
+
+    if(!page || !size) sendBadRequest(res);
+    else {
+        dbmanager.getcategories(page * size, size * 1, function(err, results) {
+            if(err) sendServerError(res, util.inspect(err));
+            else {
+                res.send(200, results);
+                res.end();
+            }
+        });
+    }
+})
+
+
 
 
 server.listen(8081, function() {
